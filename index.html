@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Haunted Spins | 3x3 Horror Slot Game</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/animations.css">
+</head>
+<body>
+    <!-- Splash Screen -->
+    <div id="splash-screen" class="splash-screen">
+        <div class="splash-content">
+            <div class="logo-container">
+                <img src="assets/logo.png" alt="Haunted Spins Logo" class="logo">
+            </div>
+            <div class="loading-container">
+                <div class="loading-bar">
+                    <div class="loading-progress"></div>
+                </div>
+                <div class="loading-text">Loading...</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Game Container -->
+    <div id="game-container" class="game-container hidden">
+        <!-- Game Header -->
+        <div class="game-header">
+            <div class="logo">
+                <img src="assets/logo.png" alt="Haunted Spins Logo">
+            </div>
+        </div>
+
+        <!-- Game Grid -->
+        <div class="slot-machine">
+            <div class="grid-container">
+                <div class="grid">
+                    <div class="reel" id="reel-0">
+                        <div class="symbol-container" id="symbol-0-0"></div>
+                        <div class="symbol-container" id="symbol-0-1"></div>
+                        <div class="symbol-container" id="symbol-0-2"></div>
+                    </div>
+                    <div class="reel" id="reel-1">
+                        <div class="symbol-container" id="symbol-1-0"></div>
+                        <div class="symbol-container" id="symbol-1-1"></div>
+                        <div class="symbol-container" id="symbol-1-2"></div>
+                    </div>
+                    <div class="reel" id="reel-2">
+                        <div class="symbol-container" id="symbol-2-0"></div>
+                        <div class="symbol-container" id="symbol-2-1"></div>
+                        <div class="symbol-container" id="symbol-2-2"></div>
+                    </div>
+                </div>
+                
+                <!-- Win Lines Overlay -->
+                <div class="win-lines">
+                    <div class="win-line horizontal-1"></div>
+                    <div class="win-line horizontal-2"></div>
+                    <div class="win-line horizontal-3"></div>
+                    <div class="win-line vertical-1"></div>
+                    <div class="win-line vertical-2"></div>
+                    <div class="win-line vertical-3"></div>
+                    <div class="win-line diagonal-1"></div>
+                    <div class="win-line diagonal-2"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Game Controls -->
+        <div class="controls-container">
+            <div class="game-info">
+                <div class="info-box">
+                    <div class="info-label">WIN</div>
+                    <div class="info-value" id="win-amount">0.00</div>
+                </div>
+                <div class="info-box">
+                    <div class="info-label">BET</div>
+                    <div class="info-value" id="bet-amount">10.00</div>
+                </div>
+                <div class="info-box">
+                    <div class="info-label">BALANCE</div>
+                    <div class="info-value" id="balance">10000.00</div>
+                </div>
+            </div>
+            
+            <div class="game-controls">
+                <div class="control-buttons">
+                    <button id="menu-btn" class="control-btn menu-btn">
+                        <span class="btn-icon">≡</span>
+                    </button>
+                    <button id="add-balance-btn" class="control-btn add-balance-btn">
+                        <span class="btn-icon">💰</span>
+                    </button>
+                    <button id="sound-btn" class="control-btn sound-btn">
+                        <span class="btn-icon">🔊</span>
+                    </button>
+                    <button id="bet-btn" class="control-btn bet-btn">
+                        <span class="btn-icon">💲</span>
+                    </button>
+                    <button id="quick-spin-btn" class="control-btn quick-spin-btn">
+                        <span class="btn-icon">⚡</span>
+                    </button>
+                    <button id="auto-spin-btn" class="control-btn auto-spin-btn">
+                        <span class="btn-icon">🔄</span>
+                        <span id="auto-spin-count" class="auto-spin-count hidden">0</span>
+                    </button>
+                    <button id="spin-btn" class="control-btn spin-btn">
+                        <span class="btn-icon">▶</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modals -->
+        <!-- Bet Selection Modal -->
+        <div id="bet-modal" class="modal hidden">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>SELECT YOUR BET</h2>
+                    <button id="close-bet-modal" class="close-btn">×</button>
+                </div>
+                <div class="modal-body">
+                    <div class="bet-grid">
+                        <button class="bet-option" data-bet="5">5</button>
+                        <button class="bet-option" data-bet="10">10</button>
+                        <button class="bet-option" data-bet="20">20</button>
+                        <button class="bet-option" data-bet="50">50</button>
+                        <button class="bet-option" data-bet="100">100</button>
+                        <button class="bet-option" data-bet="200">200</button>
+                        <button class="bet-option" data-bet="500">500</button>
+                        <button class="bet-option" data-bet="1000">1000</button>
+                        <button class="bet-option" data-bet="2000">2000</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Auto Spin Modal -->
+        <div id="auto-spin-modal" class="modal hidden">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>AUTO PLAY</h2>
+                    <button id="close-auto-spin-modal" class="close-btn">×</button>
+                </div>
+                <div class="modal-body">
+                    <h3>Choose number of rounds</h3>
+                    <div class="auto-spin-options">
+                        <button class="auto-spin-option" data-spins="15">15</button>
+                        <button class="auto-spin-option" data-spins="50">50</button>
+                        <button class="auto-spin-option" data-spins="100">100</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Win History Modal -->
+        <div id="history-modal" class="modal hidden">
+            <div class="modal-content history-content">
+                <div class="modal-header">
+                    <h2>WIN HISTORY</h2>
+                    <button id="close-history-modal" class="close-btn">×</button>
+                </div>
+                <div class="modal-body">
+                    <div class="history-stats">
+                        <div class="stat-item">
+                            <span class="stat-label">Total Spins:</span>
+                            <span class="stat-value" id="total-spins">0</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Total Wins:</span>
+                            <span class="stat-value" id="total-wins">0</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Total Spent:</span>
+                            <span class="stat-value" id="total-spent">0.00</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Total Won:</span>
+                            <span class="stat-value" id="total-won">0.00</span>
+                        </div>
+                    </div>
+                    <div class="history-table-container">
+                        <table class="history-table">
+                            <thead>
+                                <tr>
+                                    <th>Spin</th>
+                                    <th>Bet</th>
+                                    <th>Win</th>
+                                    <th>Balance</th>
+                                </tr>
+                            </thead>
+                            <tbody id="history-table-body">
+                                <!-- History rows will be added here dynamically -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Win Animation Container -->
+        <div id="win-animation" class="win-animation hidden">
+            <div class="win-text">BIG WIN!</div>
+            <div class="win-amount-display">0.00</div>
+        </div>
+
+        <!-- Free Spins Notification -->
+        <div id="free-spins-notification" class="notification hidden">
+            <div class="notification-content">
+                <h2>5 FREE SPINS AWARDED!</h2>
+                <p>You've spent over 5000 credits. Enjoy your free spins!</p>
+            </div>
+        </div>
+
+        <!-- Insufficient Balance Notification -->
+        <div id="insufficient-balance" class="notification hidden">
+            <div class="notification-content">
+                <h2>INSUFFICIENT BALANCE</h2>
+                <p>Please add more credits or reduce your bet.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Audio Elements -->
+    <audio id="spin-sound" src="assets/sounds/spin.mp3" preload="auto"></audio>
+    <audio id="win-sound" src="assets/sounds/win.mp3" preload="auto"></audio>
+    <audio id="big-win-sound" src="assets/sounds/big-win.mp3" preload="auto"></audio>
+    <audio id="button-click" src="assets/sounds/button-click.mp3" preload="auto"></audio>
+    <audio id="free-spins-sound" src="assets/sounds/free-spins.mp3" preload="auto"></audio>
+
+    <!-- Scripts -->
+    <script src="js/config.js"></script>
+    <script src="js/storage.js"></script>
+    <script src="js/symbols.js"></script>
+    <script src="js/audio.js"></script>
+    <script src="js/animations.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/paylines.js"></script>
+    <script src="js/game.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

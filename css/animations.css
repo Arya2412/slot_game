@@ -1,0 +1,161 @@
+/* Animations for the slot game */
+
+/* Splash Screen Animation */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes fadeOut {
+    from { opacity: 1; }
+    to { opacity: 0; }
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+@keyframes glow {
+    0% { filter: drop-shadow(0 0 5px var(--accent-g )) }
+    100% { transform: scale(1); }
+}
+
+@keyframes glow {
+    0% { filter: drop-shadow(0 0 5px var(--accent-glow)); }
+    50% { filter: drop-shadow(0 0 15px var(--accent-glow)); }
+    100% { filter: drop-shadow(0 0 5px var(--accent-glow)); }
+}
+
+/* Spin Animation */
+@keyframes spin {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(-300%); }
+}
+
+@keyframes quickSpin {
+    0% { transform: translateY(0); opacity: 0.5; }
+    100% { transform: translateY(-300%); opacity: 0.5; }
+}
+
+@keyframes bounceIn {
+    0% { transform: scale(0); opacity: 0; }
+    60% { transform: scale(1.1); opacity: 1; }
+    80% { transform: scale(0.9); }
+    100% { transform: scale(1); }
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+    20%, 40%, 60%, 80% { transform: translateX(5px); }
+}
+
+/* Win Line Animation */
+@keyframes winLineFlash {
+    0%, 100% { opacity: 0; }
+    50% { opacity: 1; }
+}
+
+/* Win Animation */
+@keyframes bigWinEntrance {
+    0% { transform: scale(0.5); opacity: 0; }
+    70% { transform: scale(1.2); opacity: 1; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes coinRain {
+    0% { transform: translateY(-100vh) rotate(0deg); opacity: 1; }
+    100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+}
+
+@keyframes textGlow {
+    0%, 100% { text-shadow: 0 0 10px var(--gold-glow); }
+    50% { text-shadow: 0 0 30px var(--gold-glow), 0 0 40px var(--gold-glow); }
+}
+
+/* Symbol Highlight Animation */
+@keyframes symbolHighlight {
+    0%, 100% { filter: brightness(1); transform: scale(1); }
+    50% { filter: brightness(1.5); transform: scale(1.1); }
+}
+
+/* Button Animation */
+@keyframes buttonPulse {
+    0%, 100% { transform: scale(1); box-shadow: 0 0 10px rgba(255, 48, 0, 0.5); }
+    50% { transform: scale(1.05); box-shadow: 0 0 20px var(--accent-glow); }
+}
+
+/* Notification Animation */
+@keyframes notificationSlideIn {
+    0% { transform: translate(-50%, -200%); opacity: 0; }
+    100% { transform: translate(-50%, -50%); opacity: 1; }
+}
+
+@keyframes notificationSlideOut {
+    0% { transform: translate(-50%, -50%); opacity: 1; }
+    100% { transform: translate(-50%, 200%); opacity: 0; }
+}
+
+/* Applied Animations */
+.splash-screen .logo {
+    animation: pulse 2s infinite, glow 2s infinite;
+}
+
+.symbol.spinning {
+    animation: spin 0.5s linear infinite;
+}
+
+.symbol.quick-spinning {
+    animation: quickSpin 0.1s linear infinite;
+}
+
+.symbol.win {
+    animation: symbolHighlight 1s ease infinite;
+}
+
+.win-line.active {
+    animation: winLineFlash 1s ease infinite;
+}
+
+.win-animation.show {
+    animation: fadeIn 0.5s forwards;
+}
+
+.win-animation.hide {
+    animation: fadeOut 0.5s forwards;
+}
+
+.win-text {
+    animation: textGlow 2s infinite, bigWinEntrance 0.5s;
+}
+
+.win-amount-display {
+    animation: textGlow 2s infinite;
+}
+
+.notification.show {
+    animation: notificationSlideIn 0.5s forwards;
+}
+
+.notification.hide {
+    animation: notificationSlideOut 0.5s forwards;
+}
+
+.spin-btn.pulse {
+    animation: buttonPulse 1.5s infinite;
+}
+
+/* Coin Animation Elements */
+.coin {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    background-image: url('../assets/coin.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    pointer-events: none;
+    z-index: 91;
+    animation: coinRain 2s linear forwards;
+}
